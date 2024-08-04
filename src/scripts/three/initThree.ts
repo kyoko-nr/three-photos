@@ -1,7 +1,6 @@
 import { WebGLRenderer, PerspectiveCamera, Scene, Vector3 } from "three";
-import { createImagePlane } from "./createImagePlane";
-import taipei1 from "../../assets/images/taipei1.jpg";
 import { getGui } from "../gui/gui";
+import { createImages } from "./createImages";
 
 const FOV = 90;
 
@@ -55,9 +54,8 @@ export const initThree = (
 
     createCameraGui(camera);
 
-    const image1 = createImagePlane(taipei1, { width: 553, height: 368 });
-    console.log("iamge1", image1);
-    scene.add(image1);
+    const images = createImages();
+    scene.add(...images);
 
     app.appendChild(renderer.domElement);
 

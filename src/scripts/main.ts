@@ -6,15 +6,15 @@ import { initThree } from "./three/initThree";
  * initialize Three.js app
  */
 const init = () => {
-  const app = document.querySelector<HTMLDivElement>("#app");
-  if (app) {
+  const webgl = document.querySelector<HTMLDivElement>("#webgl");
+  if (webgl) {
     const size = {
-      width: app?.clientWidth ?? 0,
-      height: app?.clientHeight ?? 0,
+      width: webgl?.clientWidth ?? 0,
+      height: webgl?.clientHeight ?? 0,
     };
-    initThree(app, size);
+    initThree(webgl, size);
     initGui();
   }
 };
 
-init();
+document.addEventListener("DOMContentLoaded", () => init());
