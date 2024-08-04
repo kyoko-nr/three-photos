@@ -3,7 +3,6 @@ import {
   TextureLoader,
   Mesh,
   ShaderMaterial,
-  MeshBasicMaterial,
   DoubleSide,
 } from "three";
 import { Pos, Size } from "./type";
@@ -19,8 +18,6 @@ type Props = {
   size: Size;
   /** Image position */
   pos: Pos;
-  /** Theta of the image */
-  theta: number;
   /** Radius of the image carousel */
   radius: number;
   /** Rotate Y radian */
@@ -32,19 +29,11 @@ type Props = {
  * @param src image src
  * @returns
  */
-export const createImageMesh = ({
-  src,
-  size,
-  pos,
-  theta,
-  radius,
-  rotateY,
-}: Props) => {
+export const createImageMesh = ({ src, size, pos, radius, rotateY }: Props) => {
   const texture = loader.load(src);
   const uniforms = {
     uTexture: { value: texture },
     uRadius: { value: radius },
-    uTheta: { value: theta },
   };
   const geo = new PlaneGeometry(size.width, size.height, 50, 50);
   const mat = new ShaderMaterial({
@@ -53,9 +42,8 @@ export const createImageMesh = ({
     fragmentShader: fShader,
     side: DoubleSide,
   });
-  // const mat = new MeshBasicMaterial({ map: texture });
   const mesh = new Mesh(geo, mat);
   mesh.position.set(pos.x, pos.y, pos.z);
-  mesh.rotateY(-rotateY);
+  mesh.rotateY(rotateY);
   return mesh;
 };
