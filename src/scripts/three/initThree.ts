@@ -14,7 +14,7 @@ const createRenderer = (size: { width: number; height: number }) => {
 const createCamera = (size: { width: number; height: number }) => {
   const fov = FOV;
   // const fovRad = (fov / 2) * (Math.PI / 180);
-  const dist = 600;
+  const dist = 1499;
   // const dist = size.height / 2 / Math.tan(fovRad);
   const camera = new PerspectiveCamera(
     fov,
@@ -30,8 +30,8 @@ const createCamera = (size: { width: number; height: number }) => {
 const createCameraGui = (camera: PerspectiveCamera) => {
   const gui = getGui();
   const folder = gui.addFolder("camera");
-  folder.add(camera.position, "x", -1000, 1000, 1);
-  folder.add(camera.position, "y", -1000, 1000, 1);
+  folder.add(camera.position, "x", -3000, 3000, 1);
+  folder.add(camera.position, "y", -3000, 3000, 1);
   folder.add(camera.position, "z", -100, 1500, 1);
 };
 

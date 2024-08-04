@@ -17,6 +17,7 @@ img {
 
 ul {
   list-style: none;
+  visibility: hidden;
 }
 
 .appRoot {

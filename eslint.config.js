@@ -18,6 +18,8 @@ export default [
       "semi-style": ["error", "last"],
       "no-extra-semi": "error",
       "no-unexpected-multiline": "error",
+      "no-unused-vars": "warn",
+      "@typescript-eslint/no-unused-vars": "warn",
     },
   },
 ];

@@ -1,11 +1,11 @@
 import { Mesh, Object3D } from "three";
-import { createImagePlane } from "./createImagePlane";
+import { createImageMesh } from "./createImageMesh";
 
 /** Gap between images */
 const GAP = 40;
 
 /** Carousel radius */
-const RADIUS = 800;
+const RADIUS = 400;
 
 const calcImageWidth = (elms: HTMLImageElement[]) => {
   const sum = elms.reduce((prev, acc) => prev + acc.naturalWidth, 0);
@@ -18,19 +18,33 @@ export const createImages = (): Object3D[] => {
   const imagesWidth = calcImageWidth(Array.from(images));
 
   const circumference = 2 * RADIUS * Math.PI;
-  const ratio = (circumference - GAP * images.length) / imagesWidth;
+  const ratio = circumference / imagesWidth;
 
   const meshes: Mesh[] = [];
-  let posX = 0;
-  images.forEach((image) => {
-    const pos = { x: posX, y: 0 };
+
+  images.forEach((image, index) => {
+    const theta = (360 / images.length) * index;
+    const rad = ((Math.PI * 2) / images.length) * index;
+
     const size = {
       width: image.naturalWidth * ratio,
       height: image.naturalHeight * ratio,
     };
-    const mesh = createImagePlane(image.src, size, pos);
+
+    const pos = {
+      x: Math.cos(rad) * RADIUS,
+      y: 0,
+      z: Math.sin(rad) * RADIUS,
+    };
+
+    const mesh = createImageMesh({
+      src: image.src,
+      pos,
+      size,
+      theta,
+      radius: RADIUS,
+    });
     meshes.push(mesh);
-    posX += GAP + image.naturalWidth * ratio;
   });
   return meshes;
 };
