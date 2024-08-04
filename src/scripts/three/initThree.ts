@@ -1,9 +1,9 @@
-import { WebGLRenderer, PerspectiveCamera, Scene } from "three";
+import { WebGLRenderer, PerspectiveCamera, Scene, Vector3 } from "three";
 import { createImagePlane } from "./createImagePlane";
 import taipei1 from "../../assets/images/taipei1.jpg";
 import { getGui } from "../gui/gui";
 
-const FOV = 60;
+const FOV = 90;
 
 const createRenderer = (size: { width: number; height: number }) => {
   const renderer = new WebGLRenderer({ alpha: true });
@@ -14,25 +14,26 @@ const createRenderer = (size: { width: number; height: number }) => {
 
 const createCamera = (size: { width: number; height: number }) => {
   const fov = FOV;
-  const fovRad = (fov / 2) * (Math.PI / 180);
-  const dist = size.height / 2 / Math.tan(fovRad);
+  // const fovRad = (fov / 2) * (Math.PI / 180);
+  const dist = 600;
+  // const dist = size.height / 2 / Math.tan(fovRad);
   const camera = new PerspectiveCamera(
     fov,
     size.width / size.height,
     0.1,
-    1000,
+    1500,
   );
   camera.position.z = dist;
+  camera.lookAt(new Vector3(0, 0, 0));
   return camera;
 };
 
 const createCameraGui = (camera: PerspectiveCamera) => {
   const gui = getGui();
   const folder = gui.addFolder("camera");
-  folder.add(camera, "fov", 10, 200);
-  folder.add(camera.position, "x", -200, 200);
-  folder.add(camera.position, "y", -200, 200);
-  folder.add(camera.position, "z", -1000, 1000);
+  folder.add(camera.position, "x", -1000, 1000, 1);
+  folder.add(camera.position, "y", -1000, 1000, 1);
+  folder.add(camera.position, "z", -100, 1500, 1);
 };
 
 const createScene = () => {
