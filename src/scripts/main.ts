@@ -1,4 +1,5 @@
 import "../styles/style.css";
+import { initGui } from "./gui/gui";
 import { initThree } from "./three/initThree";
 
 /**
@@ -12,6 +13,7 @@ const init = () => {
       height: app?.clientHeight ?? 0,
     };
     initThree(app, size);
+    initGui();
   }
 };
 

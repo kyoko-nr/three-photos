@@ -1,6 +1,7 @@
 import { WebGLRenderer, PerspectiveCamera, Scene } from "three";
 import { createImagePlane } from "./createImagePlane";
 import taipei1 from "../../assets/images/taipei1.jpg";
+import { getGui } from "../gui/gui";
 
 const FOV = 60;
 
@@ -25,6 +26,15 @@ const createCamera = (size: { width: number; height: number }) => {
   return camera;
 };
 
+const createCameraGui = (camera: PerspectiveCamera) => {
+  const gui = getGui();
+  const folder = gui.addFolder("camera");
+  folder.add(camera, "fov", 10, 200);
+  folder.add(camera.position, "x", -200, 200);
+  folder.add(camera.position, "y", -200, 200);
+  folder.add(camera.position, "z", -1000, 1000);
+};
+
 const createScene = () => {
   return new Scene();
 };
@@ -41,6 +51,8 @@ export const initThree = (
     const renderer = createRenderer(size);
     const camera = createCamera(size);
     const scene = createScene();
+
+    createCameraGui(camera);
 
     const image1 = createImagePlane(taipei1, { width: 553, height: 368 });
     console.log("iamge1", image1);
