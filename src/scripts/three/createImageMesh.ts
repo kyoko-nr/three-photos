@@ -23,6 +23,8 @@ type Props = {
   theta: number;
   /** Radius of the image carousel */
   radius: number;
+  /** Rotate Y radian */
+  rotateY: number;
 };
 
 /**
@@ -30,7 +32,14 @@ type Props = {
  * @param src image src
  * @returns
  */
-export const createImageMesh = ({ src, size, pos, theta, radius }: Props) => {
+export const createImageMesh = ({
+  src,
+  size,
+  pos,
+  theta,
+  radius,
+  rotateY,
+}: Props) => {
   const texture = loader.load(src);
   const uniforms = {
     uTexture: { value: texture },
@@ -47,5 +56,6 @@ export const createImageMesh = ({ src, size, pos, theta, radius }: Props) => {
   // const mat = new MeshBasicMaterial({ map: texture });
   const mesh = new Mesh(geo, mat);
   mesh.position.set(pos.x, pos.y, pos.z);
+  mesh.rotateY(-rotateY);
   return mesh;
 };

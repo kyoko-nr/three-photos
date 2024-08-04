@@ -24,6 +24,8 @@ export const createImages = (): Object3D[] => {
 
   images.forEach((image, index) => {
     const theta = (360 / images.length) * index;
+    const rotateRad = ((Math.PI * 2) / images.length) * (index + 1);
+
     const rad = ((Math.PI * 2) / images.length) * index;
 
     const size = {
@@ -43,6 +45,7 @@ export const createImages = (): Object3D[] => {
       size,
       theta,
       radius: RADIUS,
+      rotateY: rotateRad,
     });
     meshes.push(mesh);
   });
