@@ -1,6 +1,6 @@
 import { WebGLRenderer, PerspectiveCamera, Scene, Vector3 } from "three";
 import { getGui } from "../gui/gui";
-import { createImages, createPlanes } from "./createImages";
+import { createImages } from "./createImages";
 
 const FOV = 45;
 
@@ -13,16 +13,14 @@ const createRenderer = (size: { width: number; height: number }) => {
 
 const createCamera = (size: { width: number; height: number }) => {
   const fov = FOV;
-  // const fovRad = (fov / 2) * (Math.PI / 180);
-  // const dist = size.height / 2 / Math.tan(fovRad);
   const camera = new PerspectiveCamera(
     fov,
     size.width / size.height,
     0.1,
     1500,
   );
-  camera.position.y = 200;
-  camera.position.z = 800;
+  camera.position.y = 120;
+  camera.position.z = 600;
   camera.lookAt(new Vector3(0, 0, 0));
   return camera;
 };
@@ -54,10 +52,8 @@ export const initThree = (
 
     createCameraGui(camera);
 
-    // const images = createImages();
-    // scene.add(...images);
-    const planes = createPlanes();
-    scene.add(...planes);
+    const images = createImages();
+    scene.add(...images);
 
     app.appendChild(renderer.domElement);
 

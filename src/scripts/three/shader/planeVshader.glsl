@@ -1,16 +1,17 @@
 varying vec2 vUv;
 uniform float uRadius;
+uniform float uImageLength;
 
 void main()
 {
   vUv = uv;
 
-  float theta = position.x / (uRadius * 0.75);
+  float theta =  position.x / (90.0 * uImageLength);
 
-  float tx = uRadius * sin(theta) + position.x;
+  float tx = uRadius * sin(theta);
   float ty = position.y;
   float tz = uRadius * cos(theta);
-  vec3 newPosition = vec3(tx, ty, tz) + position.z;
+  vec3 newPosition = vec3(tx, ty, tz);
 
   // vec3 newPosition = position.xyz;
 
