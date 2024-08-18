@@ -3,6 +3,7 @@
 }
 
 body,
+*,
 *::before,
 *::after {
   margin: 0;
@@ -32,4 +33,8 @@ ul {
   left: 0;
   width: 100%;
   height: 100vh;
+}
+
+.imageSlider {
+  display: none;
 }

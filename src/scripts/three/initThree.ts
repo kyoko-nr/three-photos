@@ -1,11 +1,12 @@
 import { WebGLRenderer, PerspectiveCamera, Scene, Vector3 } from "three";
 import { getGui } from "../gui/gui";
 import { createImages } from "./createImages";
+import { OrbitControls } from "three/examples/jsm/Addons.js";
 
 const FOV = 45;
 
 const createRenderer = (size: { width: number; height: number }) => {
-  const renderer = new WebGLRenderer({ alpha: true });
+  const renderer = new WebGLRenderer({ alpha: true, antialias: true });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.setSize(size.width, size.height);
   return renderer;
@@ -21,7 +22,7 @@ const createCamera = (size: { width: number; height: number }) => {
   );
   camera.position.y = 120;
   camera.position.z = 600;
-  camera.lookAt(new Vector3(0, 0, 0));
+  camera.lookAt(new Vector3(0, -100, 0));
   return camera;
 };
 
@@ -37,6 +38,11 @@ const createScene = () => {
   return new Scene();
 };
 
+const createOrbitControl = (camera: PerspectiveCamera, elm: HTMLElement) => {
+  const control = new OrbitControls(camera, elm);
+  return control;
+};
+
 /**
  * initialize Three.js
  * @param app app element
@@ -49,6 +55,7 @@ export const initThree = (
     const renderer = createRenderer(size);
     const camera = createCamera(size);
     const scene = createScene();
+    const control = createOrbitControl(camera, renderer.domElement);
 
     createCameraGui(camera);
 
@@ -58,6 +65,7 @@ export const initThree = (
     app.appendChild(renderer.domElement);
 
     const tick = () => {
+      control.update();
       renderer.render(scene, camera);
       requestAnimationFrame(tick);
     };

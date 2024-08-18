@@ -5,7 +5,7 @@ import {
   ShaderMaterial,
   DoubleSide,
 } from "three";
-import { Pos, Size } from "./type";
+import { Size } from "./type";
 import vShader from "./shader/planeVshader.glsl";
 import fShader from "./shader/planeFshader.glsl";
 
